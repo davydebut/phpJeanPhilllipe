@@ -4,6 +4,7 @@
 /* 
 commentaires en ligne
 */
-echo "bonjour";
+echo "bonjour"; // il affichera bonjour32
+echo 32;
 
 ?>
