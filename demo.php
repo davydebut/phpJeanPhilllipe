@@ -39,5 +39,4 @@ $moyenne = ($note_anglais * $coefficient_anglais + $note_maths * $coefficient_ma
 
     ?>
 </body>
-
 </html>
