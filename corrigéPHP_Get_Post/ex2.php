@@ -9,7 +9,7 @@
         <h1>Formulaire d'inscription</h1>
 		
         <form action="ex2_submit.php" method="post">
-            <fieldset>
+            <fieldset> <!-- On crée un fieldset (ligne stylisé filigrane) pour mettre les champs dans un bloc -->
                 <legend>Formulaire d'inscription</legend>
                 Civilité :
                 <input type="radio" checked id="m" name="civilite" value="M." /><label for="m">M.</label>
