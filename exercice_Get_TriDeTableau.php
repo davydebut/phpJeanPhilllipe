@@ -1,6 +1,6 @@
 <?php
 
-$albums = array(
+/* $albums = array(
     1 => 'Constellation',
     2 => 'Dying surfer meets his maker',
     3 => 'Lightning at the door',
@@ -24,9 +24,36 @@ $albums = array(
     21 => 'Siamese dreams',
     22 => 'American thighs',
     23 => 'Shadows on the sun'
+); */
+
+$albums = array(
+    'Constellation',
+    'Dying surfer meets his maker',
+    'Lightning at the door',
+    'The speed of Cattle',
+    'Stab the unstoppable hero',
+    'Gravitron',
+    'Veneer',
+    'Lapalco',
+    'Scorpio Rising',
+    'Heartbreaker',
+    'Dead root stirring',
+    'Either/or',
+    'Figure 8',
+    'Dreamcake',
+    'Second season',
+    'In our nature',
+    'Brace the wave',
+    'Drie',
+    'Five leaves left',
+    'Beeline',
+    'Siamese dreams',
+    'American thighs',
+    'Shadows on the sun'
 );
 
 echo $albums[0];
+krsort($albums); // trie les tableaux par ordre décroissant selon l'index (krsort) 
 /* // trier par titre
 $titre 
 // trier par titre décroissant
@@ -102,7 +129,6 @@ $lien = '<a href="?tri=%s">%s</a>'; */
         </thead>
         <tbody>
             <?php
-            array_multisort($albums, SORT_DESC);
             foreach ($albums as $key => $value) {
                 echo '<tr>';
                 echo '<td>' . $key . '</td>';
