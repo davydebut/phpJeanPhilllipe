@@ -52,8 +52,8 @@ $albums = array(
     'Shadows on the sun'
 );
 
-echo $albums[0];
-krsort($albums); // trie les tableaux par ordre décroissant selon l'index (krsort) 
+// echo $albums[0];
+// krsort($albums); // trie les tableaux par ordre décroissant selon l'index (krsort) 
 /* // trier par titre
 $titre 
 // trier par titre décroissant
@@ -108,6 +108,7 @@ $lien = '<a href="?tri=%s">%s</a>'; */
 <body>
     <h1>Titres d'albums</h1>
     <p>
+        Trier par
         <?php
         // afficher le lien pour le tri par titre
         /* echo '<a href="exercice_Get_TriDeTableau.php?titre=' . $titre . '">Trier par titre</a> - ';
@@ -117,6 +118,36 @@ $lien = '<a href="?tri=%s">%s</a>'; */
         echo '<a href="exercice_Get_TriDeTableau.php?index=' . $index . '">Trier par index du tableau</a> - ';
         // afficher le lien pour le tri par index décroissant
         echo '<a href="exercice_Get_TriDeTableau.php?index_desc=' . $index_desc . '">Trier par index décroissant</a>'; */
+        // 4 liens cliquables, fonctions pour les tris
+        // variable pour les tris
+        $titre = 'titre';
+        $titre_desc = 'titre_desc';
+        $index = 'index';
+        $index_desc = 'index_desc';
+        // afficher les conditions pour les tris si l'utilisateur clique sur un lien
+        if (isset($_GET['titre'])) {
+            $titre = sort($albums);
+        } elseif (isset($_GET['titre_desc'])) {
+            $titre_desc = rsort($albums);
+        } elseif (isset($_GET['index'])) {
+            $index = ksort($albums);
+        } elseif (isset($_GET['index_desc'])) {
+            $index_desc = krsort($albums);
+        } else {
+            $titre = sort($albums);
+        }
+        /* if (isset($_GET['titre']) || isset($_GET['index'])) {
+            $titre = ksort($albums);
+        } elseif (isset($_GET['titre_desc']) || isset($_GET['index_desc'])) {
+            $titre_desc = krsort($albums);
+        } else {
+            $titre = sort($albums);
+        } */
+        // afficher les liens pour les tris en html
+        echo '<a href="exercice_Get_TriDeTableau.php?titre=' . $titre . '">titre</a> - ';
+        echo '<a href="exercice_Get_TriDeTableau.php?titre_desc=' . $titre_desc . '">titre décroissant</a> - ';
+        echo '<a href="exercice_Get_TriDeTableau.php?index=' . $index . '">numéro</a> - ';
+        echo '<a href="exercice_Get_TriDeTableau.php?index_desc=' . $index_desc . '">numéro(décroissant)</a>';
         ?>
     </p>
 
@@ -131,9 +162,9 @@ $lien = '<a href="?tri=%s">%s</a>'; */
             <?php
             foreach ($albums as $key => $value) {
                 echo '<tr>';
-                echo '<td>' . $key . '</td>';
+                echo '<td>' . $key + 1 . '</td>';
                 echo '<td>' . $value . '</td>';
-                echo '</tr>';                
+                echo '</tr>';
             }
             ?>
         </tbody>
