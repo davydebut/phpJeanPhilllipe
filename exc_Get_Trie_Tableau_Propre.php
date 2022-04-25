@@ -54,46 +54,47 @@ $albums = array(
 <body>
     <h1>Titre d'albums</h1>
     <p>Trier par
-        <?php
-        $titre = 'titre';
-        $titre_desc = 'titre_desc';
-        $numero = 'numero';
-        $numero_desc = 'numero_desc';
-
-        if (isset($_GET['titre'])) {
-            $titre = sort($albums);
-        } elseif (isset($_GET['titre_desc'])) {
-            $titre_desc = rsort($albums);
-        } elseif (isset($_GET['numero'])) {
-            $numero = ksort($albums);
-        } elseif (isset($_GET['numero_desc'])) {
-            $numero_desc = krsort($albums);
-        } else {
-            $titre = sort($albums);
-        }
-
-        echo ' <a href="?titre">Titre</a> - ';
-        echo '<a href="?titre_desc">Titre décroissant</a> - ';
-        echo '<a href="?numero">Numéro</a> - ';
-        echo '<a href="?numero_desc">Numéro décroissant</a>';
-
-        ?>
+        <a href="exercice_Get_TriDeTableau.php?tri=titre">Trier par titre</a> -
+        <a href="exercice_Get_TriDeTableau.php?tri=titre_desc">Trier par titre décroissant</a> -
+        <a href="exercice_Get_TriDeTableau.php?tri=index">Trier par index du tableau</a> -
+        <a href="exercice_Get_TriDeTableau.php?tri=index_desc">Trier par index décroissant</a>
     </p>
-    <table>
-        <tr>
-            <th>Numéro</th>
-            <th>Titre d'albums</th>
-        </tr>
-        <?php
-        // boucle pour afficher les titres d'albums
+    <?php
+    function boucle($albums)
+    {
+        echo '<table><thead><tr><th>Numéro</th><th>Titre d\'album</th></tr></thead>';
         foreach ($albums as $key => $value) {
-            echo '<tr>';
-            echo '<td>' . $key + 1 . '</td>';
-            echo '<td>' . $value . '</td>';
-            echo '</tr>';
+            echo '<tr><td>' . $key + 1 . '</td><td>' . $value . '</td></tr>';
         }
-        ?>
-    </table>
+        echo '</table>';
+    }
+    if (isset($_GET['tri'])) {
+        $tri = htmlspecialchars($_GET['tri']);
+        switch ($_GET['tri']) {
+            case 'titre':
+                sort($albums);
+                boucle($albums);
+                break;
+            case 'titre_desc':
+                rsort($albums);
+                boucle($albums);
+                break;
+            case 'index':
+                ksort($albums);
+                boucle($albums);
+                break;
+            case 'index_desc':
+                krsort($albums);
+                boucle($albums);
+                break;
+            default:
+                echo '<p>Vous devez cliquer sur un lien pour trier</p>';
+                break;
+        }
+    } else {
+        boucle($albums);
+    }
+    ?>
 </body>
 
 </html>

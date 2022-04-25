@@ -76,8 +76,10 @@ $index_desc */
     $titre = sort($albums);
 } */
 
-/* // lien html pour les tris
-$lien = '<a href="?tri=%s">%s</a>'; */
+// lien html pour les tris
+// $lien = '<a href="?tri=%s">%s</a>';
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -110,17 +112,54 @@ $lien = '<a href="?tri=%s">%s</a>'; */
     <p>
         Trier par
         <?php
+
+        // $lien = '<a href="?tri=%s">%s</a>';
+
         // afficher le lien pour le tri par titre
-        /* echo '<a href="exercice_Get_TriDeTableau.php?titre=' . $titre . '">Trier par titre</a> - ';
+        echo '<a href="exercice_Get_TriDeTableau.php?tri=titre">Trier par titre</a> - ';
         // afficher le lien pour le tri par titre décroissant
-        echo '<a href="exercice_Get_TriDeTableau.php?titre_desc=' . $titre_desc . '">Trier par titre décroissant</a> - ';
+        echo '<a href="exercice_Get_TriDeTableau.php?tri=titre_desc">Trier par titre décroissant</a> - ';
         // afficher le lien pour le tri par index du tableau
-        echo '<a href="exercice_Get_TriDeTableau.php?index=' . $index . '">Trier par index du tableau</a> - ';
+        echo '<a href="exercice_Get_TriDeTableau.php?tri=index">Trier par index du tableau</a> - ';
         // afficher le lien pour le tri par index décroissant
-        echo '<a href="exercice_Get_TriDeTableau.php?index_desc=' . $index_desc . '">Trier par index décroissant</a>'; */
+        echo '<a href="exercice_Get_TriDeTableau.php?tri=index_desc">Trier par index décroissant</a>';
+
+        function boucle($albums)
+        {
+            echo '<table><thead><tr><th>Numéro</th><th>Titre d\'album</th></tr></thead>';
+            foreach ($albums as $key => $value) {
+                echo '<tr><td>' . $key + 1 . '</td><td>' . $value . '</td></tr>';
+            }
+            echo '</table>';
+        }
+
+        if (isset($_GET['tri'])) {
+            $tri = htmlspecialchars($_GET['tri']);
+            switch ($_GET['tri']) {
+                case 'titre':
+                    natsort($albums);
+                    boucle($albums);
+                    break;
+                case 'titre_desc':
+                    rsort($albums);
+                    boucle($albums);
+                    break;
+                case 'index':
+                    ksort($albums);
+                    boucle($albums);
+                    break;
+                case 'index_desc':
+                    krsort($albums);
+                    boucle($albums);
+                    break;
+                default:
+                    echo '<p>Vous devez cliquer sur un lien pour trier</p>';
+                    break;
+            }
+        }
         // 4 liens cliquables, fonctions pour les tris
         // variable pour les tris
-        $titre = 'titre';
+        /* $titre = 'titre';
         $titre_desc = 'titre_desc';
         $index = 'index';
         $index_desc = 'index_desc';
@@ -134,8 +173,9 @@ $lien = '<a href="?tri=%s">%s</a>'; */
         } elseif (isset($_GET['index_desc'])) {
             $index_desc = krsort($albums);
         } else {
-            $titre = sort($albums);
-        }
+            // $titre = sort($albums);
+        } */
+
         /* if (isset($_GET['titre']) || isset($_GET['index'])) {
             $titre = ksort($albums);
         } elseif (isset($_GET['titre_desc']) || isset($_GET['index_desc'])) {
@@ -144,14 +184,18 @@ $lien = '<a href="?tri=%s">%s</a>'; */
             $titre = sort($albums);
         } */
         // afficher les liens pour les tris en html
-        echo '<a href="exercice_Get_TriDeTableau.php?titre=' . $titre . '">titre</a> - ';
-        echo '<a href="exercice_Get_TriDeTableau.php?titre_desc=' . $titre_desc . '">titre décroissant</a> - ';
-        echo '<a href="exercice_Get_TriDeTableau.php?index=' . $index . '">numéro</a> - ';
-        echo '<a href="exercice_Get_TriDeTableau.php?index_desc=' . $index_desc . '">numéro(décroissant)</a>';
+        /* echo sprintf($lien, $titre, 'Trier par titre') . ' - ';
+        echo sprintf($lien, $titre_desc, 'Trier par titre décroissant') . ' - ';
+        echo sprintf($lien, $index, 'Trier par index du tableau') . ' - ';
+        echo sprintf($lien, $index_desc, 'Trier par index décroissant'); */
+        /*  echo '<a href="exercice_Get_TriDeTableau.php?' . $titre . '">titre</a> - ';
+        echo '<a href="exercice_Get_TriDeTableau.php?' . $titre_desc . '">titre décroissant</a> - ';
+        echo '<a href="exercice_Get_TriDeTableau.php?' . $index . '">numéro</a> - ';
+        echo '<a href="exercice_Get_TriDeTableau.php?' . $index_desc . '">numéro(décroissant)</a>'; */
         ?>
     </p>
 
-    <table>
+    <!-- <table>
         <thead>
             <tr>
                 <th>Numéro</th>
@@ -160,15 +204,15 @@ $lien = '<a href="?tri=%s">%s</a>'; */
         </thead>
         <tbody>
             <?php
-            foreach ($albums as $key => $value) {
+            /* foreach ($albums as $key => $value) {
                 echo '<tr>';
                 echo '<td>' . $key + 1 . '</td>';
                 echo '<td>' . $value . '</td>';
                 echo '</tr>';
-            }
+            } */
             ?>
         </tbody>
-    </table>
+    </table> -->
 </body>
 
 </html>
