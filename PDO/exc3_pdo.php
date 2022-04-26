@@ -9,8 +9,8 @@ if (!empty($_POST['pseudo']) && !empty($_POST['pwd']) && isset($_POST['valider']
     $prepare = $dbh->prepare("SELECT COUNT(*) AS nbre FROM users WHERE pseudo = :pseudo");
     $prepare->execute(['pseudo' => $pseudo]);
     $result = $prepare->fetch(PDO::FETCH_ASSOC);
-    print_r($result);
-    if (!($result['nbre'] == 0)) {
+    // print_r($result);
+    if ($result['nbre'] == 0) {
         $prepare = $dbh->prepare("INSERT INTO users (`pseudo`, `pwd`) VALUES (:pseudo, :pwd)");
         $prepare->execute(
             [
@@ -18,6 +18,9 @@ if (!empty($_POST['pseudo']) && !empty($_POST['pwd']) && isset($_POST['valider']
                 'pwd' => $pwd
             ]
         );
+        $message_reussi = 'Votre compte a bien été créé';
+    } else {
+        $message_echec = 'Ce pseudo est déjà utilisé';
     }
 }
 
@@ -35,7 +38,7 @@ if (!empty($_POST['pseudo']) && !empty($_POST['pwd']) && isset($_POST['valider']
 <body>
     <form action="exc3_pdo.php" method="post">
         <fieldset>
-            <legend>Test d'authentification</legend>
+            <legend>Formulaire d'inscription</legend>
             <label for="pseudo">pseudo :</label>
             <input type="text" name="pseudo" id="pseudo"><br>
             <label for="pwd">Mot de passe :</label>
@@ -43,6 +46,14 @@ if (!empty($_POST['pseudo']) && !empty($_POST['pwd']) && isset($_POST['valider']
             <input type="submit" name="valider" value="Envoyer">
         </fieldset>
     </form>
+    <?php
+    if (isset($message_reussi)) {
+        echo $message_reussi;
+    }
+    if (isset($message_echec)) {
+        echo $message_echec;
+    }
+    ?>
 </body>
 
 </html>
